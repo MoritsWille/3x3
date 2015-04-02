@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: e026aff7a9511244089708c19cb68306
+timeCreated: 1427299684
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Nr1: {instanceID: 0}
+  - Nr2: {instanceID: 0}
+  - Nr3: {instanceID: 0}
+  - Nr4: {instanceID: 0}
+  - Nr5: {instanceID: 0}
+  - Nr6: {instanceID: 0}
+  - Nr7: {instanceID: 0}
+  - Nr8: {instanceID: 0}
+  - Nr9: {instanceID: 0}
+  - OrangeBox: {fileID: 21300002, guid: 1d5f383bc8fb26144b5429dc28235487, type: 3}
+  - BlueBox: {fileID: 21300000, guid: 1d5f383bc8fb26144b5429dc28235487, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
