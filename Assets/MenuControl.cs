@@ -1,15 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using GooglePlayGames;
 
 public class MenuControl : MonoBehaviour {
     public int Score;
     public int HighScore;
-    string path1 = System.Environment.CurrentDirectory + @"\Score.txt";
-    string path2 = System.Environment.CurrentDirectory + @"\HighScore.txt";
+    string path1 = Application.persistentDataPath + @"\Score.txt";
+    string path2 = Application.persistentDataPath + @"\HighScore.txt";
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
+        PlayGamesPlatform.Activate();
+
+        Social.localUser.Authenticate((bool success) => {
+            // handle success or failure
+        });
+
+        if (!File.Exists(path1))
+        {
+            File.Create(path1);
+        }
+        if (!File.Exists(path2))
+        {
+            File.Create(path2);
+        }
+
         using (StreamReader sr = new StreamReader(path2))
         {
             HighScore = int.Parse(sr.ReadLine());
@@ -35,9 +51,18 @@ public class MenuControl : MonoBehaviour {
     {
         Application.LoadLevel("Menu");
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void ShowAchievements()
+    {
+        Social.ShowAchievementsUI();
+    }
+
+    public void ShowLeaderboard()
+    {
+        PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIy_2dy-UJEAIQBg");
+    }
+    // Update is called once per frame
+    void Update () {
 	
 	}
 }

@@ -1,40 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using GooglePlayGames;
 
 public class Master : MonoBehaviour {
     public int Score = 0;
-    public int Time =  30;
-    int StartTime;
+    public float TimeLeft =  30f;
+    public int HighScore;
     public SpriteRenderer Nr1, Nr2, Nr3, Nr4, Nr5, Nr6, Nr7, Nr8, Nr9;
     public Sprite OrangeBox;
     public Sprite BlueBox;
+    public Sprite GreenBox;
     public int Orange;
+    int Green;
     int OldOrange = 0;
-    string Path1 = Environment.CurrentDirectory + @"\Score.txt";
-    string Path2 = Environment.CurrentDirectory + @"\HighScore.txt";
+    string Path1 = Application.persistentDataPath + @"\Score.txt";
+    string Path2 = Application.persistentDataPath + @"\HighScore.txt";
 
-	// Use this for initialization
-	void Start () {
-        StartTime = DateTime.Now.Second;
-        FindRandom();
-	}
-	
-    public void FindRandom()
-    {
-        OldOrange = Orange;
-
-        Nr1.sprite = BlueBox;
-        Nr2.sprite = BlueBox;
-        Nr3.sprite = BlueBox;
-        Nr4.sprite = BlueBox;
-        Nr5.sprite = BlueBox;
-        Nr6.sprite = BlueBox;
-        Nr7.sprite = BlueBox;
-        Nr8.sprite = BlueBox;
-        Nr9.sprite = BlueBox;
-
+    // Use this for initialization
+    void Start () {
         Orange = UnityEngine.Random.Range(1, 10);
+        Green = UnityEngine.Random.Range(1, 10);
+        
+        if (Green == Orange)
+        {
+            FindRandom();
+        }
+        
+        if (Green == 1) Nr1.sprite = GreenBox;
+        if (Green == 2) Nr2.sprite = GreenBox;
+        if (Green == 3) Nr3.sprite = GreenBox;
+        if (Green == 4) Nr4.sprite = GreenBox;
+        if (Green == 5) Nr5.sprite = GreenBox;
+        if (Green == 6) Nr6.sprite = GreenBox;
+        if (Green == 7) Nr7.sprite = GreenBox;
+        if (Green == 8) Nr8.sprite = GreenBox;
+        if (Green == 9) Nr9.sprite = GreenBox;
 
         if (Orange == 1) Nr1.sprite = OrangeBox;
         if (Orange == 2) Nr2.sprite = OrangeBox;
@@ -46,30 +47,111 @@ public class Master : MonoBehaviour {
         if (Orange == 8) Nr8.sprite = OrangeBox;
         if (Orange == 9) Nr9.sprite = OrangeBox;
     }
+	
+    public void FindRandom()
+    {
+        Nr1.sprite = BlueBox;
+        Nr2.sprite = BlueBox;
+        Nr3.sprite = BlueBox;
+        Nr4.sprite = BlueBox;
+        Nr5.sprite = BlueBox;
+        Nr6.sprite = BlueBox;
+        Nr7.sprite = BlueBox;
+        Nr8.sprite = BlueBox;
+        Nr9.sprite = BlueBox;
+
+        Orange = Green;
+        Green = UnityEngine.Random.Range(1, 10);
+        if (Green == Orange) FindRandom();
+
+        if (Orange == 1) Nr1.sprite = OrangeBox;
+        if (Orange == 2) Nr2.sprite = OrangeBox;
+        if (Orange == 3) Nr3.sprite = OrangeBox;
+        if (Orange == 4) Nr4.sprite = OrangeBox;
+        if (Orange == 5) Nr5.sprite = OrangeBox;
+        if (Orange == 6) Nr6.sprite = OrangeBox;
+        if (Orange == 7) Nr7.sprite = OrangeBox;
+        if (Orange == 8) Nr8.sprite = OrangeBox;
+        if (Orange == 9) Nr9.sprite = OrangeBox;
+
+        if (Green == 1) Nr1.sprite = GreenBox;
+        if (Green == 2) Nr2.sprite = GreenBox;
+        if (Green == 3) Nr3.sprite = GreenBox;
+        if (Green == 4) Nr4.sprite = GreenBox;
+        if (Green == 5) Nr5.sprite = GreenBox;
+        if (Green == 6) Nr6.sprite = GreenBox;
+        if (Green == 7) Nr7.sprite = GreenBox;
+        if (Green == 8) Nr8.sprite = GreenBox;
+        if (Green == 9) Nr9.sprite = GreenBox;
+    }
 
 	// Update is called once per frame
 	void Update () {
-        if (DateTime.Now.Second == StartTime + 1)
+        TimeLeft -= Time.deltaTime;
+        if (TimeLeft < 0)
         {
-            Time = Time - 1;
-            StartTime = DateTime.Now.Second;
+            GameOver();
         }
-
-        if (Time == 0) GameOver();
 
         if (Orange == OldOrange) FindRandom();
 	}
 
     public void GameOver()
     {
-        if (int.Parse(System.IO.File.ReadAllText(System.Environment.CurrentDirectory + @"\HighScore.txt")) <= Score)
+
+        Social.ReportScore(Score, "CgkIy_2dy-UJEAIQBg", (bool success) => {
+            // handle success or failure
+        });
+
+        if (Score > 25)
         {
-            System.IO.File.WriteAllText(Path2, Score.ToString());
-            System.IO.File.WriteAllText(Path1, Score.ToString());
+            Social.ReportProgress("CgkIy_2dy-UJEAIQAQ", 100.0f, (bool success) => {
+                // handle success or failure
+            });
         }
-        else if (int.Parse(System.IO.File.ReadAllText(System.Environment.CurrentDirectory + @"\HighScore.txt")) > Score)
+        if (Score > 50)
+        {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQAg", 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
+        if (Score > 75)
+        {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQAw", 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
+        if (Score > 100)
+        {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQBA", 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
+        if (Score > 150)
+        {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQBQ", 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
+
+
+        bool Bool1 = Int32.TryParse(System.IO.File.ReadAllText(Path2), out HighScore);
+        if (Bool1)
+        {
+            if (HighScore < Score)
+            {
+                System.IO.File.WriteAllText(Path2, Score.ToString());
+                System.IO.File.WriteAllText(Path1, Score.ToString());
+            }
+            else
+            {
+                System.IO.File.WriteAllText(Path1, Score.ToString());
+            }
+        }
+        else
         {
             System.IO.File.WriteAllText(Path1, Score.ToString());
+            System.IO.File.WriteAllText(Path2, Score.ToString());
         }
 
         Application.LoadLevel("GameOver");
