@@ -17,24 +17,6 @@ public class MenuControl : MonoBehaviour {
             // handle success or failure
         });
 
-        if (!File.Exists(path1))
-        {
-            File.Create(path1);
-        }
-        if (!File.Exists(path2))
-        {
-            File.Create(path2);
-        }
-
-        using (StreamReader sr = new StreamReader(path2))
-        {
-            HighScore = int.Parse(sr.ReadLine());
-        }
-
-        using (StreamReader sr = new StreamReader(path1))
-        {
-            Score = int.Parse(sr.ReadLine());
-        }
 	}
 
     public void Quit()
@@ -44,7 +26,7 @@ public class MenuControl : MonoBehaviour {
 
     public void StartGame()
     {
-        Application.LoadLevel("Game");
+        Application.LoadLevel("CountDown");
     }
 
     public void GotoMenu()

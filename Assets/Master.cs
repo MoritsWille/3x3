@@ -3,9 +3,10 @@ using System.Collections;
 using System;
 using GooglePlayGames;
 
-public class Master : MonoBehaviour {
+public class Master : MonoBehaviour
+{
     public int Score = 0;
-    public float TimeLeft =  30f;
+    public float TimeLeft = 30f;
     public int HighScore;
     public SpriteRenderer Nr1, Nr2, Nr3, Nr4, Nr5, Nr6, Nr7, Nr8, Nr9;
     public Sprite OrangeBox;
@@ -13,29 +14,16 @@ public class Master : MonoBehaviour {
     public Sprite GreenBox;
     public int Orange;
     int Green;
-    int OldOrange = 0;
     string Path1 = Application.persistentDataPath + @"\Score.txt";
     string Path2 = Application.persistentDataPath + @"\HighScore.txt";
+    string path3 = Application.persistentDataPath + @"\OrangeBox.txt";
+    string path4 = Application.persistentDataPath + @"\GreenBox.txt";
 
     // Use this for initialization
-    void Start () {
-        Orange = UnityEngine.Random.Range(1, 10);
-        Green = UnityEngine.Random.Range(1, 10);
-        
-        if (Green == Orange)
-        {
-            FindRandom();
-        }
-        
-        if (Green == 1) Nr1.sprite = GreenBox;
-        if (Green == 2) Nr2.sprite = GreenBox;
-        if (Green == 3) Nr3.sprite = GreenBox;
-        if (Green == 4) Nr4.sprite = GreenBox;
-        if (Green == 5) Nr5.sprite = GreenBox;
-        if (Green == 6) Nr6.sprite = GreenBox;
-        if (Green == 7) Nr7.sprite = GreenBox;
-        if (Green == 8) Nr8.sprite = GreenBox;
-        if (Green == 9) Nr9.sprite = GreenBox;
+    void Start()
+    {
+        Orange = Convert.ToInt16(System.IO.File.ReadAllText(path3));
+        Green = Convert.ToInt16(System.IO.File.ReadAllText(path4));
 
         if (Orange == 1) Nr1.sprite = OrangeBox;
         if (Orange == 2) Nr2.sprite = OrangeBox;
@@ -46,8 +34,18 @@ public class Master : MonoBehaviour {
         if (Orange == 7) Nr7.sprite = OrangeBox;
         if (Orange == 8) Nr8.sprite = OrangeBox;
         if (Orange == 9) Nr9.sprite = OrangeBox;
+
+        if (Green == 1) Nr1.sprite = GreenBox;
+        if (Green == 2) Nr2.sprite = GreenBox;
+        if (Green == 3) Nr3.sprite = GreenBox;
+        if (Green == 4) Nr4.sprite = GreenBox;
+        if (Green == 5) Nr5.sprite = GreenBox;
+        if (Green == 6) Nr6.sprite = GreenBox;
+        if (Green == 7) Nr7.sprite = GreenBox;
+        if (Green == 8) Nr8.sprite = GreenBox;
+        if (Green == 9) Nr9.sprite = GreenBox;
     }
-	
+
     public void FindRandom()
     {
         Nr1.sprite = BlueBox;
@@ -85,16 +83,15 @@ public class Master : MonoBehaviour {
         if (Green == 9) Nr9.sprite = GreenBox;
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         TimeLeft -= Time.deltaTime;
         if (TimeLeft < 0)
         {
             GameOver();
         }
-
-        if (Orange == OldOrange) FindRandom();
-	}
+    }
 
     public void GameOver()
     {
@@ -157,4 +154,12 @@ public class Master : MonoBehaviour {
         Application.LoadLevel("GameOver");
     }
 
+}
+
+public class SaveFile
+{
+    public int Orange;
+    public int Green;
+    public int Score;
+    public int HighScore;
 }

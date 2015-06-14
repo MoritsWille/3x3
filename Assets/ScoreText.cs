@@ -17,7 +17,7 @@ public class ScoreText : MonoBehaviour {
         ScoreTextText = GetComponent<Text>();
         if (GOMC.HighScore == GOMC.Score)
         {
-            ScoreTextText.text = "New high score! " + GOMC.HighScore.ToString();
+            ScoreTextText.text = "   New high score! " + GOMC.HighScore.ToString();
         }
         else ScoreTextText.text = "Score: " + GOMC.Score.ToString() + " High Score: " + GOMC.HighScore.ToString();
 	}
