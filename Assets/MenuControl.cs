@@ -6,8 +6,6 @@ using GooglePlayGames;
 public class MenuControl : MonoBehaviour {
     public int Score;
     public int HighScore;
-    string path1 = Application.persistentDataPath + @"\Score.txt";
-    string path2 = Application.persistentDataPath + @"\HighScore.txt";
 
     // Use this for initialization
     void Start() {
