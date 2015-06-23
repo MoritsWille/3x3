@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Click : MonoBehaviour {
     public GameObject gm;
-    public AudioSource Death;
     public AudioSource Bub;
     int Name;
 
@@ -31,7 +30,6 @@ public class Click : MonoBehaviour {
         }
         else
         {
-            Death.Play();
             MasterScript.GameOver();
         }
 	}

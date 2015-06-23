@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 using System;
 using GooglePlayGames;
 
@@ -22,8 +23,10 @@ public class Master : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Orange = Convert.ToInt16(System.IO.File.ReadAllText(path3));
-        Green = Convert.ToInt16(System.IO.File.ReadAllText(path4));
+		HighScore = Convert.ToInt32(File.ReadAllText (Path2));
+
+        Orange = Convert.ToInt16(File.ReadAllText(path3));
+        Green = Convert.ToInt16(File.ReadAllText(path4));
 
         if (Orange == 1) Nr1.sprite = OrangeBox;
         if (Orange == 2) Nr2.sprite = OrangeBox;
@@ -96,7 +99,7 @@ public class Master : MonoBehaviour
     public void GameOver()
     {
 
-        Social.ReportScore(Score, "CgkIy_2dy-UJEAIQBg", (bool success) => {
+		Social.ReportScore(Score, "CgkIy_2dy-UJEAIQBw", (bool success) => {
             // handle success or failure
         });
 
@@ -132,34 +135,17 @@ public class Master : MonoBehaviour
         }
 
 
-        bool Bool1 = Int32.TryParse(System.IO.File.ReadAllText(Path2), out HighScore);
-        if (Bool1)
-        {
             if (HighScore < Score)
             {
-                System.IO.File.WriteAllText(Path2, Score.ToString());
-                System.IO.File.WriteAllText(Path1, Score.ToString());
+                File.WriteAllText(Path2, Score.ToString());
+                File.WriteAllText(Path1, Score.ToString());
             }
             else
             {
-                System.IO.File.WriteAllText(Path1, Score.ToString());
+                File.WriteAllText(Path1, Score.ToString());
             }
-        }
-        else
-        {
-            System.IO.File.WriteAllText(Path1, Score.ToString());
-            System.IO.File.WriteAllText(Path2, Score.ToString());
-        }
 
         Application.LoadLevel("GameOver");
     }
 
-}
-
-public class SaveFile
-{
-    public int Orange;
-    public int Green;
-    public int Score;
-    public int HighScore;
 }
