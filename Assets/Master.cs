@@ -17,16 +17,18 @@ public class Master : MonoBehaviour
     int Green;
     string Path1 = Application.persistentDataPath + @"\Score.txt";
     string Path2 = Application.persistentDataPath + @"\HighScore.txt";
-    string path3 = Application.persistentDataPath + @"\OrangeBox.txt";
-    string path4 = Application.persistentDataPath + @"\GreenBox.txt";
-
-    // Use this for initialization
+    string Path3 = Application.persistentDataPath + @"\OrangeBox.txt";
+    string Path4 = Application.persistentDataPath + @"\GreenBox.txt";
+    //string Path1 = Directory.GetCurrentDirectory() + @"\Score.txt";
+    //string Path2 = Directory.GetCurrentDirectory() + @"\HighScore.txt";
+    //string Path3 = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
+    //string Path4 = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+	
+	// Use this for initialization
     void Start()
     {
-		HighScore = Convert.ToInt32(File.ReadAllText (Path2));
-
-        Orange = Convert.ToInt16(File.ReadAllText(path3));
-        Green = Convert.ToInt16(File.ReadAllText(path4));
+        Orange = Convert.ToInt16(File.ReadAllText(Path3));
+        Green = Convert.ToInt16(File.ReadAllText(Path4));
 
         if (Orange == 1) Nr1.sprite = OrangeBox;
         if (Orange == 2) Nr2.sprite = OrangeBox;
@@ -134,16 +136,16 @@ public class Master : MonoBehaviour
             });
         }
 
-
-            if (HighScore < Score)
-            {
-                File.WriteAllText(Path2, Score.ToString());
-                File.WriteAllText(Path1, Score.ToString());
-            }
-            else
-            {
-                File.WriteAllText(Path1, Score.ToString());
-            }
+        Int32.TryParse(File.ReadAllText(Path2), out HighScore);
+		if (HighScore < Score)
+        {
+            File.WriteAllText(Path2, Score.ToString());
+            File.WriteAllText(Path1, Score.ToString());
+        }
+        else
+        {
+            File.WriteAllText(Path1, Score.ToString());
+        }
 
         Application.LoadLevel("GameOver");
     }

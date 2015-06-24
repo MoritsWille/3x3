@@ -9,11 +9,12 @@ public class CountDownMaster : MonoBehaviour {
     public Sprite OrangeBox;
     public Sprite BlueBox;
     public Sprite GreenBox;
-    string path1 = Application.persistentDataPath + @"\OrangeBox.txt";
-    string path2 = Application.persistentDataPath + @"\GreenBox.txt";
-    public int Orange;
+    string path1 = Application.persistentDataPath + @"\orangebox.txt";
+    string path2 = Application.persistentDataPath + @"\greenbox.txt";
+    //string path1 = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
+    //string path2 = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+	public int Orange;
     int Green;
-
     // Use this for initialization
     void Start () {
         Orange = UnityEngine.Random.Range(1, 10);
