@@ -4,7 +4,7 @@ using System.Collections;
 
 public class ScoreText : MonoBehaviour {
     Text ScoreTextText;
-    public GameObject GOM;
+    public GameObject gm;
 
 	// Use this for initialization
 	void Start () {
@@ -13,12 +13,12 @@ public class ScoreText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        MenuControl GOMC = (MenuControl)GOM.GetComponent(typeof(MenuControl));
+        MenuControl gmScript = (MenuControl)gm.GetComponent(typeof(MenuControl));
         ScoreTextText = GetComponent<Text>();
-        if (GOMC.HighScore == GOMC.Score)
+        if (gmScript.HighScore == gmScript.Score)
         {
-            ScoreTextText.text = "   New high score! " + GOMC.HighScore.ToString();
+            ScoreTextText.text = "   New high score! " + gmScript.HighScore.ToString();
         }
-        else ScoreTextText.text = "Score: " + GOMC.Score.ToString() + " High Score: " + GOMC.HighScore.ToString();
+        else ScoreTextText.text = "Score: " + gmScript.Score.ToString() + " High Score: " + gmScript.HighScore.ToString();
 	}
 }

@@ -137,6 +137,7 @@ public class Master : MonoBehaviour
         }
 
         Int32.TryParse(File.ReadAllText(Path2), out HighScore);
+
 		if (HighScore < Score)
         {
             File.WriteAllText(Path2, Score.ToString());

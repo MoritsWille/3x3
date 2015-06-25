@@ -9,8 +9,8 @@ public class CountDownMaster : MonoBehaviour {
     public Sprite OrangeBox;
     public Sprite BlueBox;
     public Sprite GreenBox;
-    string path1 = Application.persistentDataPath + @"\orangebox.txt";
-    string path2 = Application.persistentDataPath + @"\greenbox.txt";
+    string path1 = Application.persistentDataPath + @"\OrangeBox.txt";
+    string path2 = Application.persistentDataPath + @"\GreenBox.txt";
     //string path1 = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
     //string path2 = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
 	public int Orange;
