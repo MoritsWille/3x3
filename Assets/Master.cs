@@ -15,20 +15,31 @@ public class Master : MonoBehaviour
     public Sprite GreenBox;
     public int Orange;
     int Green;
-    string Path1 = Application.persistentDataPath + @"\Score.txt";
-    string Path2 = Application.persistentDataPath + @"\HighScore.txt";
-    string Path3 = Application.persistentDataPath + @"\OrangeBox.txt";
-    string Path4 = Application.persistentDataPath + @"\GreenBox.txt";
-    //string Path1 = Directory.GetCurrentDirectory() + @"\Score.txt";
-    //string Path2 = Directory.GetCurrentDirectory() + @"\HighScore.txt";
-    //string Path3 = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
-    //string Path4 = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+    string ScorePath;
+    string HighScorePath;
+    string OrangeBoxPath;
+    string GreenBoxPath;
 	
 	// Use this for initialization
     void Start()
     {
-        Orange = Convert.ToInt16(File.ReadAllText(Path3));
-        Green = Convert.ToInt16(File.ReadAllText(Path4));
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            ScorePath = Application.persistentDataPath + @"Score.txt";
+            HighScorePath = Application.persistentDataPath + @"HighScore.txt";
+            OrangeBoxPath = Application.persistentDataPath + @"OrangeBox.txt";
+            GreenBoxPath = Application.persistentDataPath + @"GreenBox.txt";
+        }
+        else
+        {
+            ScorePath = Directory.GetCurrentDirectory() + @"\Score.txt";
+            HighScorePath = Directory.GetCurrentDirectory() + @"\HighScore.txt";
+            OrangeBoxPath = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
+            GreenBoxPath = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+        }
+
+        Orange = Convert.ToInt16(File.ReadAllText(OrangeBoxPath));
+        Green = Convert.ToInt16(File.ReadAllText(GreenBoxPath));
 
         if (Orange == 1) Nr1.sprite = OrangeBox;
         if (Orange == 2) Nr2.sprite = OrangeBox;
@@ -101,51 +112,57 @@ public class Master : MonoBehaviour
     public void GameOver()
     {
 
-		Social.ReportScore(Score, "CgkIy_2dy-UJEAIQBw", (bool success) => {
+        Social.ReportScore(Score, "CgkIy_2dy-UJEAIQBw", (bool success) =>
+        {
             // handle success or failure
         });
 
         if (Score > 25)
         {
-            Social.ReportProgress("CgkIy_2dy-UJEAIQAQ", 100.0f, (bool success) => {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQAQ", 100.0f, (bool success) =>
+            {
                 // handle success or failure
             });
         }
         if (Score > 50)
         {
-            Social.ReportProgress("CgkIy_2dy-UJEAIQAg", 100.0f, (bool success) => {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQAg", 100.0f, (bool success) =>
+            {
                 // handle success or failure
             });
         }
         if (Score > 75)
         {
-            Social.ReportProgress("CgkIy_2dy-UJEAIQAw", 100.0f, (bool success) => {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQAw", 100.0f, (bool success) =>
+            {
                 // handle success or failure
             });
         }
         if (Score > 100)
         {
-            Social.ReportProgress("CgkIy_2dy-UJEAIQBA", 100.0f, (bool success) => {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQBA", 100.0f, (bool success) =>
+            {
                 // handle success or failure
             });
         }
         if (Score > 150)
         {
-            Social.ReportProgress("CgkIy_2dy-UJEAIQBQ", 100.0f, (bool success) => {
+            Social.ReportProgress("CgkIy_2dy-UJEAIQBQ", 100.0f, (bool success) =>
+            {
                 // handle success or failure
             });
         }
 
-        Int32.TryParse(File.ReadAllText(Path2), out HighScore);
+        Int32.TryParse(File.ReadAllText(HighScorePath), out HighScore);
 
 		if (HighScore < Score)
         {
-            File.WriteAllText(Path2, Score.ToString());
-            File.WriteAllText(Path1, Score.ToString());
+            File.WriteAllText(HighScorePath, Score.ToString());
+            File.WriteAllText(ScorePath, Score.ToString());
         }
         else
         {
-            File.WriteAllText(Path1, Score.ToString());
+            File.WriteAllText(ScorePath, Score.ToString());
         }
 
         Application.LoadLevel("GameOver");

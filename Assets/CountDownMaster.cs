@@ -9,14 +9,24 @@ public class CountDownMaster : MonoBehaviour {
     public Sprite OrangeBox;
     public Sprite BlueBox;
     public Sprite GreenBox;
-    string path1 = Application.persistentDataPath + @"\OrangeBox.txt";
-    string path2 = Application.persistentDataPath + @"\GreenBox.txt";
-    //string path1 = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
-    //string path2 = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+    string OrangeBoxPath;
+    string GreenBoxPath;
 	public int Orange;
     int Green;
     // Use this for initialization
     void Start () {
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            OrangeBoxPath = Application.persistentDataPath + @"OrangeBox.txt";
+            GreenBoxPath = Application.persistentDataPath + @"GreenBox.txt";
+        }
+        else
+        {
+            OrangeBoxPath = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
+            GreenBoxPath = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+        }
+
         Orange = UnityEngine.Random.Range(1, 10);
         Green = UnityEngine.Random.Range(1, 10);
         
@@ -45,8 +55,8 @@ public class CountDownMaster : MonoBehaviour {
         if (Orange == 8) Nr8.sprite = OrangeBox;
         if (Orange == 9) Nr9.sprite = OrangeBox;
 
-        File.WriteAllText(path1, Orange.ToString());
-        File.WriteAllText(path2, Green.ToString());
+        File.WriteAllText(OrangeBoxPath, Orange.ToString());
+        File.WriteAllText(GreenBoxPath, Green.ToString());
 
     }
 

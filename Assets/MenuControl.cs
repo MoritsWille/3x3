@@ -7,15 +7,35 @@ using GooglePlayGames;
 public class MenuControl : MonoBehaviour {
     public int Score;
     public int HighScore;
-    string Path1 = Application.persistentDataPath + @"\Score.txt";
-    string Path2 = Application.persistentDataPath + @"\HighScore.txt";
-    //string Path1 = Directory.GetCurrentDirectory() + @"\Score.txt";
-    //string Path2 = Directory.GetCurrentDirectory() + @"\HighScore.txt";
+    string ScorePath;
+    string HighScorePath;
+    string OrangeBoxPath;
+    string GreenBoxPath;
 
     // Use this for initialization
     void Start() {
-        Score = Convert.ToInt16(File.ReadAllText(Path1));
-        HighScore = Convert.ToInt16(File.ReadAllText(Path2));
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            ScorePath = Application.persistentDataPath + @"Score.txt";
+            HighScorePath = Application.persistentDataPath + @"HighScore.txt";
+            OrangeBoxPath = Application.persistentDataPath + @"OrangeBox.txt";
+            GreenBoxPath = Application.persistentDataPath + @"GreenBox.txt";
+        }
+        else
+        {
+            ScorePath = Directory.GetCurrentDirectory() + @"\Score.txt";
+            HighScorePath = Directory.GetCurrentDirectory() + @"\HighScore.txt";
+            OrangeBoxPath = Directory.GetCurrentDirectory() + @"\OrangeBox.txt";
+            GreenBoxPath = Directory.GetCurrentDirectory() + @"\GreenBox.txt";
+        }
+
+        if (!File.Exists(ScorePath)) File.Create(ScorePath);
+        if (!File.Exists(HighScorePath)) File.Create(HighScorePath);
+        if (!File.Exists(OrangeBoxPath)) File.Create(OrangeBoxPath);
+        if (!File.Exists(GreenBoxPath)) File.Create(GreenBoxPath);
+
+        Score = Convert.ToInt16(File.ReadAllText(ScorePath));
+        HighScore = Convert.ToInt16(File.ReadAllText(HighScorePath));
 
         PlayGamesPlatform.Activate();
 
@@ -47,7 +67,7 @@ public class MenuControl : MonoBehaviour {
 
     public void ShowLeaderboard()
     {
-        PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIy_2dy-UJEAIQBg");
+        PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkIy_2dy-UJEAIQBw");
     }
     // Update is called once per frame
     void Update () {
